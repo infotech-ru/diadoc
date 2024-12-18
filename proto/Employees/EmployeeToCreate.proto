@@ -1,0 +1,28 @@
+syntax = "proto3";
+import "User.proto";
+import "Employees/Employee.proto";
+
+package Diadoc.Api.Proto.Employees;
+
+message EmployeeToCreate {
+    EmployeeToCreateCredentials Credentials = 1;
+    optional string Position = 2;
+    bool CanBeInvitedForChat = 3;
+    EmployeePermissions Permissions = 4;
+}
+
+message EmployeeToCreateCredentials {
+    optional EmployeeToCreateByLogin Login = 1;
+    optional EmployeeToCreateByCertificate Certificate = 2;
+}
+
+message EmployeeToCreateByLogin {
+    string Login = 1;
+    optional FullName FullName = 2;
+}
+
+message EmployeeToCreateByCertificate {
+    bytes Content = 1;
+    optional string AccessBasis = 2;
+    optional string Email = 3;
+}

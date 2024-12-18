@@ -1,0 +1,19 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Invoicing;
+
+message Official {
+    string Surname = 1;
+    string FirstName = 2;
+    optional string Patronymic = 3;
+    optional string JobTitle = 4;
+}
+
+message Attorney {
+    optional string Date = 1;                       // Дата выдачи доверенности
+    optional string Number = 2;                     // Номер доверенности
+    optional string IssuerOrganizationName = 3;     // Организация, представитель которой выдал доверенность
+    optional Official IssuerPerson = 4;             // Лицо, выдавшее доверенность
+    optional string IssuerAdditionalInfo = 5;       // Дополнительная информация о выдавшем доверенность
+    optional Official RecipientPerson = 6;          // Лицо, получившее доверенность
+    optional string RecipientAdditionalInfo = 7;    // Дополнительная информация о получившем доверенность
+}

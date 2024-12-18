@@ -1,0 +1,21 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Recognition;
+
+message Recognized {
+    string RecognitionId = 1;
+    optional string ErrorMessage = 2;
+    optional string FileName = 3;
+    optional RecognizedDocumentType DocumentType = 4;
+    optional bytes Content = 5;
+    optional RecognizedInvoice Invoice = 6;
+}
+
+enum RecognizedDocumentType {
+    Unknown = 0;
+    Invoice = 1;
+}
+
+message RecognizedInvoice {
+    string MetadataJson = 1;
+    optional string ValidationErrorMessage = 2;
+}

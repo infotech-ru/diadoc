@@ -1,0 +1,6 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Documents;
+
+message DocumentZipGenerationResult {
+    optional string ZipFileNameOnShelf = 1;
+}

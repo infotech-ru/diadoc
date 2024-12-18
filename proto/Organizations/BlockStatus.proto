@@ -1,0 +1,10 @@
+syntax = "proto3";
+import "Organizations/ManualBlockStatus.proto";
+import "Organizations/AutoBlockStatus.proto";
+
+package Diadoc.Api.Proto.Organizations;
+
+message BlockStatus {
+    ManualBlockStatus ManualBlockStatus = 1;
+    AutoBlockStatus AutoBlockStatus = 2;
+}

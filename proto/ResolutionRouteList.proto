@@ -1,0 +1,11 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+message ResolutionRouteList {
+    repeated ResolutionRoute ResolutionRoutes = 1;
+}
+
+message ResolutionRoute {
+    string RouteId = 1;
+    string Name = 2;
+}

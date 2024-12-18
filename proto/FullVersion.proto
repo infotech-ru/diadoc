@@ -1,0 +1,8 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+message FullVersion {
+    string TypeNamedId = 1;
+    string Function = 2;
+    string Version = 3;
+}

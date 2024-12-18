@@ -1,0 +1,7 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Departments;
+
+message Routing {
+    bool Kpp = 1;
+    bool Address = 2;
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+import "Timestamp.proto";
+import "DocumentId.proto";
+import "TotalCountType.proto";
+import "TimeBasedFilter.proto";
+import "Forwarding/ForwardedDocument.proto";
+
+package Diadoc.Api.Proto.Forwarding;
+
+message ForwardDocumentRequest {
+    string ToBoxId = 1;
+    DocumentId DocumentId = 2;
+}
+
+message ForwardDocumentResponse {
+    optional Timestamp ForwardTimestamp = 1;
+    optional ForwardedDocumentId ForwardedDocumentId = 2;
+}
+
+message GetForwardedDocumentsRequest {
+    repeated ForwardedDocumentId ForwardedDocumentIds = 1;
+    optional bool InjectEntityContent = 2;
+}
+
+message GetForwardedDocumentsResponse {
+    repeated ForwardedDocument ForwardedDocuments = 1;
+}
+
+message GetForwardedDocumentEventsRequest {
+    TimeBasedFilter Filter = 1;
+    optional bytes AfterIndexKey = 2;
+    optional bool PopulateForwardedDocuments = 3;
+    optional bool InjectEntityContent = 4;
+}
+
+message GetForwardedDocumentEventsResponse {
+    optional int32 TotalCount = 1;
+    repeated ForwardedDocumentEvent Events = 2;
+    TotalCountType TotalCountType = 3;
+}
+
+message ForwardedDocumentEvent {
+    optional Timestamp Timestamp = 1;
+    optional ForwardedDocumentId ForwardedDocumentId = 2;
+    optional bytes IndexKey = 3;
+    optional ForwardedDocument ForwardedDocument = 4;
+}

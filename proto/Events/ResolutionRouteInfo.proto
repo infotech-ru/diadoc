@@ -1,0 +1,12 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Events;
+
+message ResolutionRouteAssignmentInfo {
+    string RouteId = 1;
+    string Author = 2;
+}
+
+message ResolutionRouteRemovalInfo {
+    string RouteId = 1;
+    string Author = 2;
+}

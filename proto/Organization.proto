@@ -1,0 +1,66 @@
+syntax = "proto3";
+import "Address.proto";
+
+package Diadoc.Api.Proto;
+
+message OrganizationList {
+    repeated Organization Organizations = 1;
+}
+
+message Organization {
+    string OrgId = 1;
+    string Inn = 2;
+    optional string Kpp = 3;
+    string FullName = 4;
+    optional string ShortName = 5;
+    repeated Box Boxes = 7;
+    optional string Ogrn = 8;
+    optional string FnsParticipantId = 9;
+    optional Address Address = 10;
+    optional string FnsRegistrationDate = 11;
+    repeated Department Departments = 12;
+    optional string IfnsCode = 13;
+    optional bool IsPilot = 14;
+    optional bool IsActive = 15;
+    optional bool IsTest = 16;
+    optional bool IsBranch = 17;
+    optional bool IsRoaming = 18;
+    optional bool IsEmployee = 19;
+    optional int32 InvitationCount = 20;
+    optional int32 SearchCount = 21;
+    Sociability Sociability = 22;
+    optional string LiquidationDate = 23;
+    optional string CertificateOfRegistryInfo = 24;
+    optional bool IsForeign = 25;
+    optional bool HasCertificateToSign = 26;
+}
+
+message Department {
+    string DepartmentId = 1;
+    string ParentDepartmentId = 2;
+    string Name = 3;
+    optional string Abbreviation = 4;
+    optional string Kpp = 5;
+    optional Address Address = 6;
+    optional bool IsDisabled = 7;
+}
+
+enum OrganizationInvoiceFormatVersion {
+    UnknownOrganizationInvoiceFormatVersion = 0;
+    v5_01 = 1;
+    v5_02 = 2;
+}
+
+message Box {
+    string BoxId = 1;
+    string BoxIdGuid = 6;
+    string Title = 2;
+    optional Organization Organization = 3;
+    optional OrganizationInvoiceFormatVersion InvoiceFormatVersion = 4;
+    optional bool EncryptedDocumentsAllowed = 5;
+}
+
+enum Sociability {
+    AllOrganizations = 0;
+    CounteragentsOnly = 1;
+}

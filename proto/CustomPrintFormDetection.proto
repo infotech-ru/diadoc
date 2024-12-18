@@ -1,0 +1,17 @@
+syntax = "proto3";
+import "DocumentId.proto";
+
+package Diadoc.Api.Proto;
+
+message CustomPrintFormDetectionRequest {
+    repeated DocumentId DocumentIds = 1;
+}
+
+message CustomPrintFormDetectionResult {
+    repeated CustomPrintFormDetectionItemResult Items = 1;
+}
+
+message CustomPrintFormDetectionItemResult {
+    DocumentId DocumentId = 1;
+    bool HasCustomPrintForm = 2;
+}

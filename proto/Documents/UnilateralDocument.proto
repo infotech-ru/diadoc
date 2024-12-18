@@ -1,0 +1,28 @@
+syntax = "proto3";
+import "Documents/ReceiptStatus.proto";
+
+package Diadoc.Api.Proto.Documents.UnilateralDocument;
+
+message ProformaInvoiceMetadata {
+    optional UnilateralDocumentStatus DocumentStatus = 1;
+    string Total = 2;
+    optional string Vat = 3;
+    optional string Grounds = 4;
+    optional ReceiptStatus ReceiptStatus = 5;
+}
+
+message ServiceDetailsMetadata {
+    UnilateralDocumentStatus DocumentStatus = 1;
+    ReceiptStatus ReceiptStatus = 2;
+}
+
+enum UnilateralDocumentStatus {
+    UnknownUnilateralDocumentStatus = 0;
+    Outbound = 1;
+    OutboundWaitingForSenderSignature = 4;
+    OutboundInvalidSenderSignature = 5;
+    Inbound = 2;
+    Internal = 3;
+    InternalWaitingForSenderSignature = 6;
+    InternalInvalidSenderSignature = 7;
+}

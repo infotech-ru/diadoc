@@ -1,0 +1,69 @@
+syntax = "proto3";
+import "Documents/ReceiptStatus.proto";
+
+package Diadoc.Api.Proto.Documents.BilateralDocument;
+
+message TrustConnectionRequestMetadata {
+    optional BilateralDocumentStatus TrustConnectionRequestStatus = 1;
+}
+
+message BasicDocumentMetadata {
+    optional BilateralDocumentStatus DocumentStatus = 1;
+    string Total = 2;
+    optional string Vat = 3;
+    optional string Grounds = 4;
+    optional ReceiptStatus ReceiptStatus = 5;
+    optional string RevisionDate = 6;
+    optional string RevisionNumber = 7;
+}
+
+message PriceListMetadata {
+    optional BilateralDocumentStatus DocumentStatus = 1;
+    optional string PriceListEffectiveDate = 2;
+    optional string ContractDocumentDate = 3;
+    optional string ContractDocumentNumber = 4;
+    optional ReceiptStatus ReceiptStatus = 5;
+}
+
+message ContractMetadata {
+    optional BilateralDocumentStatus DocumentStatus = 1;
+    optional string ContractPrice = 2;
+    optional string ContractType = 3;
+    optional ReceiptStatus ReceiptStatus = 4;
+}
+
+message SupplementaryAgreementMetadata {
+    optional BilateralDocumentStatus DocumentStatus = 1;
+    optional string Total = 2;
+    optional string ContractType = 3;
+    string ContractNumber = 4;
+    string ContractDate = 5;
+    optional ReceiptStatus ReceiptStatus = 6;
+}
+
+message BilateralDocumentMetadata {
+    optional BilateralDocumentStatus DocumentStatus = 1;
+    optional ReceiptStatus ReceiptStatus = 2;
+}
+
+enum BilateralDocumentStatus {
+    UnknownBilateralDocumentStatus = 0;
+    OutboundWaitingForRecipientSignature = 1;
+    OutboundWithRecipientSignature = 2;
+    OutboundWithRecipientPartiallySignature = 19;
+    OutboundRecipientSignatureRequestRejected = 3;
+    OutboundWaitingForSenderSignature = 10;
+    OutboundInvalidSenderSignature = 11;
+    InboundWaitingForRecipientSignature = 4;
+    InboundWithRecipientSignature = 5;
+    InboundWithRecipientPartiallySignature = 20;
+    InboundRecipientSignatureRequestRejected = 6;
+    InboundInvalidRecipientSignature = 12;
+    InternalWaitingForRecipientSignature = 7;
+    InternalWithRecipientSignature = 8;
+    InternalWithRecipientPartiallySignature = 21;
+    InternalRecipientSignatureRequestRejected = 9;
+    InternalWaitingForSenderSignature = 13;
+    InternalInvalidSenderSignature = 14;
+    InternalInvalidRecipientSignature = 15;
+}

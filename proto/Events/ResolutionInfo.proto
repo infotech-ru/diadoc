@@ -1,0 +1,10 @@
+syntax = "proto3";
+import "ResolutionType.proto";
+
+package Diadoc.Api.Proto.Events;
+
+message ResolutionInfo {
+    optional ResolutionType ResolutionType = 1;
+    string Author = 2;
+    optional string InitialRequestId = 3;
+}

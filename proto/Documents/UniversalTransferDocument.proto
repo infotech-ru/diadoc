@@ -1,0 +1,81 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Documents.UniversalTransferDocument;
+
+message UniversalTransferDocumentMetadata {
+    optional UniversalTransferDocumentStatus DocumentStatus = 1;
+    string Total = 2;
+    optional string Vat = 3;
+    optional string Grounds = 4;
+    string DocumentFunction = 5;
+    int32 Currency = 6;
+    optional sfixed64 ConfirmationDateTimeTicks = 8;
+    optional int32 InvoiceAmendmentFlags = 9;
+}
+
+message UniversalTransferDocumentRevisionMetadata {
+    UniversalTransferDocument.UniversalTransferDocumentStatus DocumentStatus = 1;
+    string Total = 2;
+    optional string Vat = 3;
+    optional string Grounds = 4;
+    string DocumentFunction = 5;
+    int32 Currency = 6;
+    optional sfixed64 ConfirmationDateTimeTicks = 7;
+    int32 InvoiceAmendmentFlags = 8;
+    string OriginalInvoiceNumber = 9;
+    string OriginalInvoiceDate = 10;
+}
+
+message UniversalCorrectionDocumentMetadata {
+    UniversalTransferDocument.UniversalTransferDocumentStatus DocumentStatus = 1;
+    string TotalInc = 2;
+    string TotalDec = 3;
+    string VatInc = 4;
+    string VatDec = 5;
+    optional string Grounds = 6;
+    string DocumentFunction = 7;
+    int32 Currency = 8;
+    sfixed64 ConfirmationDateTimeTicks = 9;
+    int32 InvoiceAmendmentFlags = 10;
+    string OriginalInvoiceNumber = 11;
+    string OriginalInvoiceDate = 12;
+    optional string OriginalInvoiceRevisionNumber = 13;
+    optional string OriginalInvoiceRevisionDate = 14;
+}
+
+message UniversalCorrectionDocumentRevisionMetadata {
+    UniversalTransferDocument.UniversalTransferDocumentStatus DocumentStatus = 1;
+    string TotalInc = 2;
+    string TotalDec = 3;
+    string VatInc = 4;
+    string VatDec = 5;
+    optional string Grounds = 6;
+    string DocumentFunction = 7;
+    int32 Currency = 8;
+    sfixed64 ConfirmationDateTimeTicks = 9;
+    int32 InvoiceAmendmentFlags = 10;
+    string OriginalInvoiceNumber = 11;
+    string OriginalInvoiceDate = 12;
+    optional string OriginalInvoiceRevisionNumber = 13;
+    optional string OriginalInvoiceRevisionDate = 14;
+    string OriginalInvoiceCorrectionNumber = 15;
+    string OriginalInvoiceCorrectionDate = 16;
+}
+
+enum UniversalTransferDocumentStatus {
+    UnknownDocumentStatus = 0;
+    OutboundWaitingForSenderSignature = 1;
+    OutboundWaitingForInvoiceReceiptAndRecipientSignature = 2;
+    OutboundWaitingForInvoiceReceipt = 3;
+    OutboundWaitingForRecipientSignature = 4;
+    OutboundWithRecipientSignature = 5;
+    OutboundRecipientSignatureRequestRejected = 6;
+    OutboundInvalidSenderSignature = 7;
+    OutboundNotFinished = 8;
+    OutboundFinished = 9;
+    InboundWaitingForRecipientSignature = 16;
+    InboundWithRecipientSignature = 17;
+    InboundRecipientSignatureRequestRejected = 18;
+    InboundInvalidRecipientSignature = 19;
+    InboundNotFinished = 20;
+    InboundFinished = 21;
+}

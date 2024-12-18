@@ -1,0 +1,15 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Employees.Subscriptions;
+
+message EmployeeSubscriptions {
+    repeated Subscription Subscriptions = 1;
+}
+
+message SubscriptionsToUpdate {
+    repeated Subscription Subscriptions = 1;
+}
+
+message Subscription {
+    string Id = 1;
+    bool IsSubscribed = 2;
+}

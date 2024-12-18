@@ -1,0 +1,9 @@
+syntax = "proto3";
+import "Invoicing/Signer.proto";
+
+package Diadoc.Api.Proto.Invoicing;
+
+message RevocationRequestInfo {
+    optional string Comment = 1;
+    optional Signer Signer = 2;
+}

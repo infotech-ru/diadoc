@@ -1,0 +1,7 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+message Content {
+    sfixed32 Size = 1;
+    optional bytes Data = 2;
+}

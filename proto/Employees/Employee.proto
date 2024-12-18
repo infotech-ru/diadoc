@@ -1,0 +1,33 @@
+syntax = "proto3";
+import "User.proto";
+import "OrganizationUserPermissions.proto";
+import "Timestamp.proto";
+
+package Diadoc.Api.Proto.Employees;
+
+message Employee {
+    UserV2 User = 1;
+    EmployeePermissions Permissions = 2;
+    string Position = 3;
+    bool CanBeInvitedForChat = 4;
+    optional Timestamp CreationTimestamp = 5;
+}
+
+message EmployeePermissions {
+    string UserDepartmentId = 1;
+    bool IsAdministrator = 2;
+    DocumentAccessLevel DocumentAccessLevel = 3;
+    repeated string SelectedDepartmentIds = 4;
+    repeated EmployeeAction Actions = 5;
+    optional AuthorizationPermission AuthorizationPermission = 6;
+}
+
+message EmployeeAction {
+    string Name = 1;
+    bool IsAllowed = 2;
+}
+
+message EmployeeList {
+    repeated Employee Employees = 1;
+    int32 TotalCount = 2;
+}

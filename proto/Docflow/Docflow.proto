@@ -1,0 +1,56 @@
+syntax = "proto3";
+import "Timestamp.proto";
+import "CustomDataItem.proto";
+import "Docflow/Attachment.proto";
+import "Docflow/InvoiceDocflow.proto";
+import "Docflow/UnilateralDocflow.proto";
+import "Docflow/BilateralDocflow.proto";
+import "Docflow/XmlBilateralDocflow.proto";
+import "Docflow/RevocationDocflow.proto";
+import "Docflow/ResolutionDocflow.proto";
+import "Docflow/UniversalTransferDocumentDocflow.proto";
+import "Docflow/RoamingNotification.proto";
+
+package Diadoc.Api.Proto.Docflow;
+
+message Docflow {
+    optional bool IsFinished = 1;
+    optional SignedAttachment DocumentAttachment = 2;
+    optional string DepartmentId = 3;
+    optional bool DocumentIsDeleted = 4;
+    optional DocflowStatus DocflowStatus = 5;
+    optional Timestamp SendTimestamp = 6;
+    optional Timestamp DeliveryTimestamp = 7;
+    optional InboundInvoiceDocflow InboundInvoiceDocflow = 8;
+    optional OutboundInvoiceDocflow OutboundInvoiceDocflow = 9;
+    optional XmlBilateralDocflow XmlBilateralDocflow = 10;
+    optional BilateralDocflow BilateralDocflow = 11;
+    optional UnilateralDocflow UnilateralDocflow = 12;
+    optional RevocationDocflow RevocationDocflow = 13;
+    optional ResolutionDocflow ResolutionDocflow = 14;
+    optional bool CanDocumentBeRevokedUnilaterallyBySender = 15;
+    optional string PacketId = 16;
+    repeated CustomDataItem CustomData = 17;
+    optional InboundUniversalTransferDocumentDocflow InboundUniversalTransferDocumentDocflow = 18;
+    optional OutboundUniversalTransferDocumentDocflow OutboundUniversalTransferDocumentDocflow = 19;
+    optional RoamingNotification RoamingNotification = 20;
+}
+
+message DocflowStatus {
+    optional DocflowStatusModel PrimaryStatus = 1;
+    optional DocflowStatusModel SecondaryStatus = 2;
+}
+
+message DocflowStatusModel {
+    optional DocflowStatusSeverity Severity = 1;
+    optional string StatusText = 2;
+    optional string StatusHint = 3;
+}
+
+enum DocflowStatusSeverity {
+    UnknownDocflowStatusSeverity = 0;
+    Info = 1;
+    Success = 2;
+    Warning = 3;
+    Error = 4;
+}

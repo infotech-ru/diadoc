@@ -1,0 +1,17 @@
+syntax = "proto3";
+import "Address.proto";
+import "Timestamp.proto";
+import "Departments/Routing.proto";
+
+package Diadoc.Api.Proto.Departments;
+
+message Department {
+    string Id = 1;
+    optional string ParentDepartmentId = 2;
+    string Name = 3;
+    string Abbreviation = 4;
+    optional string Kpp = 5;
+    optional Address Address = 6;
+    Routing Routing = 7;
+    Timestamp CreationTimestamp = 8;
+}

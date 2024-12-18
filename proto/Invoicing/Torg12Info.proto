@@ -1,0 +1,80 @@
+syntax = "proto3";
+import "Invoicing/Signer.proto";
+import "Invoicing/Official.proto";
+import "Invoicing/OrganizationInfo.proto";
+
+package Diadoc.Api.Proto.Invoicing;
+
+// Со стороны продавца
+message Torg12SellerTitleInfo {
+    string DocumentDate = 1;                             // Дата товарной накладной
+    optional string DocumentNumber = 2;                  // Номер товарной накладной
+    DocflowParticipant SellerDocflowParticipant = 3;     // Участник документооборота, отпустивший товар
+    DocflowParticipant BuyerDocflowParticipant = 4;      // Участник документооборота, которому отпущен товар
+    optional OrganizationInfo Shipper = 5;               // Грузоотправитель
+    optional OrganizationInfo Consignee = 6;             // Грузополучатель
+    optional OrganizationInfo Supplier = 7;              // Поставщик
+    optional OrganizationInfo Payer = 8;                 // Плательщик
+    optional Grounds Grounds = 9;                        // Основание
+    optional string WaybillDate = 10;                    // Дата составления транспортной накладной
+    optional string WaybillNumber = 11;                  // Номер транспортной накладной
+    optional string OperationCode = 12;                  // Код вида операции
+    repeated Torg12Item Items = 13;                      // Табличные сведения товарной накладной
+    optional string ParcelsQuantityTotal = 14;           // Количество мест, штук - всего по накладной
+    optional string ParcelsQuantityTotalInWords = 15;    // Количество мест, штук - всего по накладной, прописью
+    optional string GrossQuantityTotal = 16;             // Брутто - всего по накладной
+    optional string GrossQuantityTotalInWords = 17;      // Брутто - всего по накладной, прописью
+    optional string NetQuantityTotal = 18;               // Нетто - всего по накладной
+    optional string NetQuantityTotalInWords = 19;        // Нетто - всего по накладной, прописью
+    optional string QuantityTotal = 20;                  // Количество (масса нетто) - всего по накладной
+    optional string TotalWithVatExcluded = 21;           // Сумма без учета НДС - всего по накладной
+    optional string Vat = 22;                            // Сумма НДС - всего по накладной
+    string Total = 23;                                   // Сумма с учетом НДС - всего по накладной
+    optional string TotalInWords = 24;                   // Сумма с учетом НДС - всего по накладной, прописью
+    optional string SupplyDate = 25;                     // Дата отпуска
+    optional Official SupplyAllowedBy = 26;              // Отпуск разрешил
+    optional Official SupplyPerformedBy = 27;            // Отпуск произвел
+    optional Official ChiefAccountant = 28;              // Главный бухгалтер
+    Signer Signer = 29;                                  // Подписант
+    optional string AdditionalInfo = 30;                 // Дополнительные сведения
+    optional string AttachmentSheetsQuantity = 31;       // Приложение, количество листов
+}
+
+// Со стороны покупателя
+message Torg12BuyerTitleInfo {
+    string ShipmentReceiptDate = 1;        // Дата получения груза
+    optional Attorney Attorney = 2;        // Сведения по доверенности
+    optional Official AcceptedBy = 3;      // Лицо, принявшее груз
+    optional Official ReceivedBy = 4;      // Лицо, получившее груз
+    Signer Signer = 5;                     // Подписант
+    optional string AdditionalInfo = 6;    // Дополнительная информация
+}
+
+message Torg12Item {
+    string Name = 1;                                 // Наименование
+    optional string Feature = 2;                     // Характеристика
+    optional string Sort = 3;                        // Сорт товара
+    optional string NomenclatureArticle = 4;         // Артикул
+    optional string Code = 5;                        // Код товара
+    optional string UnitCode = 6;                    // Код единицы измерения
+    string UnitName = 7;                             // Наименование единицы измерения
+    optional string ParcelType = 8;                  // Вид упаковки
+    optional string ParcelCapacity = 9;              // Количество в одном месте
+    optional string ParcelsQuantity = 10;            // Количество мест
+    optional string GrossQuantity = 11;              // Брутто
+    string Quantity = 12;                            // Нетто
+    optional string Price = 13;                      // Цена
+    string TaxRate = 14;                             // Ставка налога
+    optional string SubtotalWithVatExcluded = 15;    // Сумма без учета налога
+    optional string Vat = 16;                        // Сумма налога
+    string Subtotal = 17;                            // Сумма всего
+    optional string AdditionalInfo = 18;             // Информационное поле сведений о товаре
+}
+
+// Документ-основание
+message Grounds {
+    optional string DocumentName = 1;
+    optional string DocumentNumber = 2;
+    optional string DocumentDate = 3;
+    optional string AdditionalInfo = 4;
+}

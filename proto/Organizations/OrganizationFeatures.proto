@@ -1,0 +1,9 @@
+syntax = "proto3";
+import "Organizations/BlockStatus.proto";
+
+package Diadoc.Api.Proto.Organizations;
+
+message OrganizationFeatures {
+    BlockStatus BlockStatus = 1;
+    repeated string Features = 2;
+}

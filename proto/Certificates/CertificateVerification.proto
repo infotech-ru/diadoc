@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "Timestamp.proto";
+import "Certificates/CertificateInfoV2.proto";
+
+package Diadoc.Api.Proto.Certificates;
+
+message CertificateVerificationRequest {
+    bytes CertificateContent = 1;
+}
+
+message CertificateVerificationResponse {
+    bool IsValid = 1;
+    Timestamp VerifiedAt = 2;
+    optional CertificateSubjectType SubjectType = 3;
+}

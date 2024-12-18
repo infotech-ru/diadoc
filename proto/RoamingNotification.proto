@@ -1,0 +1,7 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+message RoamingNotification {
+    bool Success = 1;
+    optional string Description = 2;
+}

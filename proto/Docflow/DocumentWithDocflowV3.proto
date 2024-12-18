@@ -1,0 +1,19 @@
+syntax = "proto3";
+import "DocumentId.proto";
+import "Timestamp.proto";
+import "Docflow/DocumentInfoV3.proto";
+import "Docflow/DocflowV3.proto";
+
+package Diadoc.Api.Proto.Docflow;
+
+message DocumentWithDocflowV3 {
+    DocumentId DocumentId = 1;
+    LastEvent LastEvent = 2;
+    DocumentInfoV3 DocumentInfo = 3;
+    DocflowV3 Docflow = 4;
+}
+
+message LastEvent {
+    string EventId = 1;
+    Timestamp Timestamp = 2;
+}

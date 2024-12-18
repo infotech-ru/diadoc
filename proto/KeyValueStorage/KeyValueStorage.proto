@@ -1,0 +1,19 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.KeyValueStorage;
+
+message KeyValueStorageEntry {
+    string Key = 1;
+    string Value = 2;
+}
+
+message KeyValueStorageApiGetRequest {
+    repeated string Keys = 1;
+}
+
+message KeyValueStorageApiGetResponse {
+    repeated KeyValueStorageEntry Entries = 1;
+}
+
+message KeyValueStorageApiPutRequest {
+    repeated KeyValueStorageEntry Entries = 1;
+}

@@ -1,0 +1,29 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+enum DocumentAccessLevel {
+    DepartmentOnly = 0;
+    DepartmentAndSubdepartments = 1;
+    AllDocuments = 2;
+    SelectedDepartments = 3;
+}
+
+message OrganizationUserPermissions {
+    string UserDepartmentId = 1;
+    bool IsAdministrator = 2;
+    optional DocumentAccessLevel DocumentAccessLevel = 3;
+    bool CanSignDocuments = 4;
+    bool CanManageCounteragents = 6;
+    bool CanAddResolutions = 7;
+    bool CanRequestResolutions = 8;
+    repeated string SelectedDepartmentIds = 9;
+    optional string JobTitle = 10;
+    bool CanCreateDocuments = 11;
+    AuthorizationPermission AuthorizationPermission = 12;
+    bool CanDeleteRestoreDocuments = 13;
+}
+
+message AuthorizationPermission {
+    bool IsBlocked = 1;
+    optional string Comment = 2;
+}

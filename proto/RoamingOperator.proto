@@ -1,0 +1,18 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+message RoamingOperatorList {
+    repeated RoamingOperator RoamingOperators = 1;
+}
+
+message RoamingOperator {
+    string FnsId = 1;
+    string Name = 2;
+    bool IsActive = 3;
+    repeated OperatorFeature Features = 4;
+}
+
+message OperatorFeature {
+    string Name = 1;
+    string Description = 2;
+}

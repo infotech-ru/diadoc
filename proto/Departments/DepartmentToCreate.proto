@@ -1,0 +1,14 @@
+syntax = "proto3";
+import "Address.proto";
+import "Departments/Routing.proto";
+
+package Diadoc.Api.Proto.Departments;
+
+message DepartmentToCreate {
+    optional string ParentDepartmentId = 1;
+    string Name = 2;
+    string Abbreviation = 3;
+    optional string Kpp = 4;
+    optional Address Address = 5;
+    Routing Routing = 6;
+}

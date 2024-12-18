@@ -1,0 +1,36 @@
+syntax = "proto3";
+import "Address.proto";
+
+package Diadoc.Api.Proto.Invoicing.Organizations;
+
+message ExtendedOrganizationInfo {
+    optional string BoxId = 1;                                       // Идентификатор ящика в Диадоке
+    optional string OrgName = 2;                                     // Название // НаимОрг
+    optional string Inn = 3;                                         // ИНН // ИНН ФЛ-ИНН
+    optional string Kpp = 4;                                         // КПП // КПП
+    optional Address Address = 5;                                    // Адрес // Адрес
+    optional string FnsParticipantId = 6;                            // Идентификатор участника ЭДО
+    OrgType OrgType = 7;                                             // СвИП - СвЮЛУч - СвИнНеУч
+    optional string Okopf = 8;                                       // Код организационно-правовой формы по ОКОПФ
+    optional string Okpo = 9;                                        // Код ОКПО // ОКПО
+    optional string Okdp = 10;                                       // Код основного вида деятельности по ОКДП
+    optional string Phone = 11;                                      // Номер контактного телефона/факс // Тлф
+    optional string Email = 12;                                      // Адрес электронной почты // ЭлПочта
+    optional string CorrespondentAccount = 13;                       // Корреспондентский счёт // КорСчет
+    optional string BankAccountNumber = 14;                          // Номер банковского счета // НомерСчета
+    optional string BankName = 15;                                   // Название банка // НаимБанк
+    optional string BankId = 16;                                     // БИК // БИК
+    optional string Department = 17;                                 // Структурное подразделение // СтруктПодр
+    optional string OrganizationAdditionalInfo = 18;                 // Информация для участника // ИнфДляУчаст
+    optional string OrganizationOrPersonInfo = 19;                   // Иные сведения, идентифицирующие ФЛ или ЮЛ // ИныеСвед
+    optional string IndividualEntityRegistrationCertificate = 20;    // Реквизиты свидетельства о государственной регистрации ИП // СвГосРегИп
+    optional string Country = 21;                                    // Страна // Страна
+}
+
+enum OrgType {
+    UnknownOrgType = 0;
+    LegalEntity = 1;         // Сведения о юридическом лице, состоящем на учете в налоговых органах // СвЮЛУч
+    IndividualEntity = 2;    // Сведения об индивидуальном предпринимателе // СвИП
+    ForeignEntity = 3;       // Сведения об иностранном лице, не состоящем на учете в налоговых органах // СвЮлНеУч
+    PhysicalEntity = 4;      // Сведения о физическом лице // СвФл
+}

@@ -1,0 +1,8 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+enum ResolutionType {
+    UndefinedResolutionType = 0;
+    Approve = 1;
+    Disapprove = 2;
+}

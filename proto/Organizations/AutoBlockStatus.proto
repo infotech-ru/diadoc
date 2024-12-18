@@ -1,0 +1,6 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Organizations;
+
+message AutoBlockStatus {
+    bool IsBlocked = 1;
+}

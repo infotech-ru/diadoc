@@ -1,0 +1,9 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+enum DocumentDirection {
+    UnknownDocumentDirection = 0;
+    Inbound = 1;
+    Outbound = 2;
+    Internal = 3;
+}

@@ -1,0 +1,157 @@
+syntax = "proto3";
+import "Content_v3.proto";
+import "Timestamp.proto";
+import "User.proto";
+
+package Diadoc.Api.Proto.PowersOfAttorney;
+
+message PowerOfAttorneyFullId {
+    string RegistrationNumber = 1;
+    string IssuerInn = 2;
+}
+
+message PowerOfAttorney {
+    PowerOfAttorneyFullId FullId = 1;
+    PowerOfAttorneyIssuer Issuer = 2;
+    PowerOfAttorneyConfidant Confidant = 3;
+    Timestamp StartAt = 4;
+    Timestamp ExpireAt = 5;
+    optional string System = 6;
+    optional string IdFile = 7;
+    repeated PowerOfAttorney DelegationChain = 8;
+    PowerOfAttorneyPermissionsInfo PermissionsInfo = 9;
+    optional PowerOfAttorneyDelegationInfo DelegationInfo = 10;
+}
+
+message PowerOfAttorneyIssuer {
+    optional PowerOfAttorneyIssuerType Type = 1;
+    optional PowerOfAttorneyIssuerLegalEntity LegalEntity = 2;
+    optional PowerOfAttorneyIssuerForeignEntity ForeignEntity = 3;
+    optional PowerOfAttorneyIssuerIndividualEntity IndividualEntity = 4;
+    optional PowerOfAttorneyIssuerPhysicalEntity PhysicalEntity = 5;
+}
+
+enum PowerOfAttorneyIssuerType {
+    UnknownIssuerType = 0;
+    LegalEntity = 1;
+    ForeignEntity = 2;
+    IndividualEntity = 3;
+    PhysicalEntity = 4;
+}
+
+message PowerOfAttorneyIssuerLegalEntity {
+    string Inn = 1;
+    string Kpp = 2;
+    string OrganizationName = 3;
+}
+
+message PowerOfAttorneyIssuerForeignEntity {
+    optional string Inn = 1;
+    optional string Kpp = 2;
+    string OrganizationName = 3;
+}
+
+message PowerOfAttorneyIssuerIndividualEntity {
+    string Inn = 1;
+    string OrganizationName = 3;
+}
+
+message PowerOfAttorneyIssuerPhysicalEntity {
+    string Inn = 1;
+    optional FullName PersonName = 2;
+}
+
+message PowerOfAttorneyConfidant {
+    FullName PersonName = 1;
+    string Inn = 2;
+    optional PowerOfAttorneyConfidantOrganization Organization = 3;
+}
+
+message PowerOfAttorneyConfidantOrganization {
+    string Inn = 1;
+    optional string Kpp = 2;
+    string Name = 3;
+}
+
+message PowerOfAttorneyPermissionsInfo {
+    repeated PowerOfAttorneyPermissions Permissions = 1;
+    optional string TransferPermissionLoss = 2;
+    string JointPermissions = 3;
+}
+
+message PowerOfAttorneyPermissions {
+    string Type = 1;
+    optional string TextPermission = 2;
+    repeated PowerOfAttorneyMachineReadablePermission MachineReadablePermission = 3;
+}
+
+message PowerOfAttorneyMachineReadablePermission {
+    optional string Mnemonic = 1;
+    string Code = 2;
+    string Name = 3;
+    repeated PowerOfAttorneyRestrictions Restrictions = 4;
+}
+
+message PowerOfAttorneyRestrictions {
+    int32 Id = 1;
+    string Code = 2;
+    string Name = 3;
+    optional string ValueName = 4;
+    optional string ValueCode = 5;
+    optional string ValueText = 6;
+}
+
+message PowerOfAttorneyToRegister {
+    optional PowerOfAttorneyFullId FullId = 1;
+    optional PowerOfAttorneySignedContent Content = 2;
+}
+
+message PowerOfAttorneySignedContent {
+    Content_v3 Content = 1;
+    Content_v3 Signature = 2;
+}
+
+message PowerOfAttorneyRegisterResult {
+    string OperationStatus = 1;
+    optional PowerOfAttorney PowerOfAttorney = 2;
+    optional PowerOfAttorneyStatus Status = 3;
+    repeated PowerOfAttorneyOperationError Errors = 4;
+}
+
+message PowerOfAttorneyStatus {
+    string Status = 1;
+    optional Timestamp LastCheckAt = 2;
+}
+
+message PowerOfAttorneyOperationError {
+    string Code = 1;
+    string Text = 2;
+}
+
+enum PowerOfAttorneySendingType {
+    Unknown = 0;
+    Metadata = 1;
+    File = 2;
+    DocumentContent = 3;
+}
+
+message PowerOfAttorneyDelegationInfo {
+    string RootRegistrationNumber = 1;
+    optional string ParentRegistrationNumber = 2;
+}
+
+message PowerOfAttorneyContent {
+    bytes Content = 1;
+    bytes Signature = 2;
+}
+
+message PowerOfAttorneyContentResponse {
+    PowerOfAttorneyContentV2 Content = 1;
+    repeated PowerOfAttorneyContentV2 DelegationChain = 2;
+}
+
+message PowerOfAttorneyContentV2 {
+    bytes Content = 1;
+    bytes Signature = 2;
+    PowerOfAttorneyFullId FullId = 3;
+}

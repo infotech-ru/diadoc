@@ -1,0 +1,7 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Events;
+
+message ResolutionRequestDenialInfo {
+    string Author = 1;
+    optional string InitialRequestId = 2;
+}

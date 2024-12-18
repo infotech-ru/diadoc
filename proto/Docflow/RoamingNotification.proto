@@ -1,0 +1,9 @@
+syntax = "proto3";
+import "Docflow/Attachment.proto";
+
+package Diadoc.Api.Proto.Docflow;
+
+message RoamingNotification {
+    Entity Notification = 1;
+    bool IsSuccess = 2;
+}

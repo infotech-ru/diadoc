@@ -1,0 +1,6 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Events;
+
+message RevocationRequestInfo {
+    string InitiatorBoxId = 1;
+}

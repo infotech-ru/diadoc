@@ -1,0 +1,31 @@
+syntax = "proto3";
+import "Counteragent.proto";
+import "TotalCountType.proto";
+import "DocumentId.proto";
+import "Events/CounteragentEventType.proto";
+
+package Diadoc.Api.Proto.Events;
+
+message BoxCounteragentEventList {
+    repeated BoxCounteragentEvent Events = 1;
+    optional int32 TotalCount = 2;
+    TotalCountType TotalCountType = 3;
+}
+
+message BoxCounteragentEvent {
+    string EventId = 1;
+    optional CounteragentInfo Counteragent = 2;
+    optional string IndexKey = 3;
+    repeated CounteragentEventType EventTypes = 4;
+}
+
+message CounteragentInfo {
+    string CounteragentBoxId = 1;
+    CounteragentStatus Status = 2;
+    sfixed64 EventTimestampTicks = 3;
+    optional string LastEventComment = 4;
+    optional string MessageFromCounteragent = 5;
+    optional string MessageToCounteragent = 6;
+    optional DocumentId InvitationDocumentId = 7;
+    optional string CounteragentGroupId = 8;
+}

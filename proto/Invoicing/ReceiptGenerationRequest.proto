@@ -1,0 +1,8 @@
+syntax = "proto3";
+package Diadoc.Api.Proto.Invoicing;
+
+message ReceiptGenerationRequestV2 {
+    string MessageId = 1;
+    string AttachmentId = 2;
+    bytes SignerContent = 3;
+}

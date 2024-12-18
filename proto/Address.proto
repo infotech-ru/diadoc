@@ -1,0 +1,26 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+message Address {
+    optional RussianAddress RussianAddress = 1;
+    optional ForeignAddress ForeignAddress = 2;
+    optional string AddressCode = 3;
+}
+
+message RussianAddress {
+    optional string ZipCode = 1;
+    string Region = 2;
+    optional string Territory = 3;
+    optional string City = 4;
+    optional string Locality = 5;
+    optional string Street = 6;
+    optional string Building = 7;
+    optional string Block = 8;
+    optional string Apartment = 9;
+    optional string OtherInformation = 10;
+}
+
+message ForeignAddress {
+    string Country = 1;
+    string Address = 2;
+}

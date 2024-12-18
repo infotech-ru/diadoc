@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "SignatureVerificationResult.proto";
+import "Timestamp.proto";
+import "Certificates/CertificateInfoV2.proto";
+
+package Diadoc.Api.Proto;
+
+message SignatureInfo {
+    Timestamp SigningTime = 1;
+    optional Timestamp SignatureVerificationTime = 2;
+    optional SignatureVerificationResult SignatureVerificationResult = 3;
+    string Thumbprint = 4;
+    string SerialNumber = 5;
+    optional string Issuer = 6;
+    optional string StartDate = 7;
+    optional string EndDate = 8;
+    optional string OrgName = 9;
+    optional string OrgInn = 10;
+    optional string JobTitle = 11;
+    optional string FirstName = 12;
+    optional string Surname = 13;
+    optional string Snils = 14;
+    optional string Email = 15;
+    optional Certificates.CertificateSubjectType CertificateSubjectType = 16;
+}

@@ -1,0 +1,27 @@
+syntax = "proto3";
+import "Docflow/Attachment.proto";
+import "Timestamp.proto";
+import "SignatureVerificationResult.proto";
+import "Docflow/PowerOfAttorneyAttachmentStatus.proto";
+import "Docflow/SignaturePowerOfAttorney.proto";
+
+package Diadoc.Api.Proto.Docflow;
+
+message SignatureV3 {
+    Entity Cms = 1;
+    optional Entity CadesT = 2;
+    string SignerBoxId = 3;
+    string SignerDepartmentId = 4;
+    bool IsValid = 5;
+    optional SignatureVerificationResult VerificationResult = 6;
+    optional Timestamp DeliveredAt = 7;
+    optional SignaturePowerOfAttorney PowerOfAttorney = 8;
+    optional PowerOfAttorneyAttachmentStatus PowerOfAttorneyAttachmentStatus = 9;
+}
+
+message SignedAttachmentV3 {
+    Attachment Attachment = 1;
+    optional SignatureV3 Signature = 2;
+    optional Entity Comment = 3;
+    string ContentTypeId = 4;
+}

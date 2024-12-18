@@ -1,0 +1,16 @@
+syntax = "proto3";
+import "Invoicing/Signer.proto";
+
+package Diadoc.Api.Proto.Invoicing;
+
+message InvoiceCorrectionRequestInfo {
+    string ErrorMessage = 1;
+    Signer Signer = 2;
+}
+
+message InvoiceCorrectionRequestGenerationRequestV2 {
+    string ErrorMessage = 1;
+    string MessageId = 2;
+    string AttachmentId = 3;
+    bytes SignerContent = 4;
+}
