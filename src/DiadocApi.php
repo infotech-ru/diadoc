@@ -30,6 +30,8 @@ use Diadoc\Api\Proto\Events\MessagePatch;
 use Diadoc\Api\Proto\Events\MessagePatchToPost;
 use Diadoc\Api\Proto\Events\MessageToPost;
 use Diadoc\Api\Proto\Events\SignedContent;
+use Diadoc\Api\Proto\Events\Template;
+use Diadoc\Api\Proto\Events\TemplateToPost;
 use Diadoc\Api\Proto\Forwarding\ForwardDocumentRequest;
 use Diadoc\Api\Proto\GetOrganizationsByInnListRequest;
 use Diadoc\Api\Proto\GetOrganizationsByInnListResponse;
@@ -130,6 +132,7 @@ class DiadocApi
     public const RESOURCE_PREPARE_DOCUMENTS_TO_SIGN = '/PrepareDocumentsToSign';
     public const RESOURCE_POST_MESSAGE = '/V3/PostMessage';
     public const RESOURCE_POST_MESSAGE_PATCH = '/V3/PostMessagePatch';
+    public const RESOURCE_POST_TEMPLATE = '/PostTemplate';
     public const RESOURCE_RECOGNIZE = '/Recognize';
     public const RESOURCE_RECYCLE_DRAFT = '/RecycleDraft';
     public const RESOURCE_RESTORE = '/Restore';
@@ -899,6 +902,21 @@ class DiadocApi
         );
 
         $message = new MessagePatch();
+        $message->mergeFromString($response);
+
+        return $message;
+    }
+
+    public function postTemplate(TemplateToPost $templateToPost, ?string $operationId = null): Template
+    {
+        $response = $this->doRequest(
+            self::RESOURCE_POST_TEMPLATE,
+            $templateToPost->serializeToString(),
+            ['operationId' => $operationId],
+            self::METHOD_POST,
+        );
+
+        $message = new Template();
         $message->mergeFromString($response);
 
         return $message;
