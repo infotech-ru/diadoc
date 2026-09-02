@@ -47,6 +47,7 @@ use Diadoc\Api\Proto\TimeBasedFilter;
 use Diadoc\Api\Proto\Timestamp;
 use Diadoc\Api\Proto\User;
 use Exception;
+use infotech\diadoc\Auth\Interfaces\AuthProviderInterface;
 use infotech\diadoc\Exception\DiadocApiException;
 use infotech\diadoc\Exception\DiadocApiUnauthorizedException;
 use infotech\diadoc\Filter\DocumentsFilter;
@@ -141,12 +142,15 @@ class DiadocApi
     public const RESOURCE_SHELF_UPLOAD = '/ShelfUpload';
 
     private ?string $token = null;
+    private ?int $lastStatusCode = null;
+    private ?int $lastRetryAfter = null;
 
     public function __construct(
-        private string $ddauthApiClientId,
-        private string $serviceUrl = 'https://diadoc-api.kontur.ru/',
-        private bool $debugRequest = false,
-        private ?SignerProviderInterface $signerProvider = null,
+        private string                          $ddauthApiClientId,
+        private string                          $serviceUrl = 'https://diadoc-api.kontur.ru/',
+        private bool                            $debugRequest = false,
+        private ?SignerProviderInterface        $signerProvider = null,
+        private ?AuthProviderInterface $authProvider = null,
     ) {
     }
 
@@ -357,13 +361,17 @@ class DiadocApi
         return $this->generateSignedContent($content);
     }
 
-    public function generateTitleXml(array $queryParams, string $postData): string
-    {
+    public function generateTitleXml(
+        array $queryParams,
+        string $postData,
+        ?string $contentType = null,
+    ): string {
         return $this->doRequest(
             self::RESOURCE_GENERATE_TITLE_XML,
             $postData,
             $queryParams,
             self::METHOD_POST,
+            $contentType,
         );
     }
 
@@ -988,7 +996,8 @@ class DiadocApi
         ?string $contentType = null,
     ): string {
         if (
-            !$this->getToken()
+            $this->authProvider === null
+            && !$this->getToken()
             && !in_array(
                 $resource,
                 [self::RESOURCE_AUTHENTICATE, self::RESOURCE_AUTHENTICATE_V2, self::RESOURCE_AUTHENTICATE_V3],
@@ -1005,8 +1014,21 @@ class DiadocApi
             http_build_query($queryParams)
         );
 
+        $this->lastStatusCode = null;
+        $this->lastRetryAfter = null;
+
         $ch = curl_init($uri);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($curl, string $header): int {
+            $parts = explode(':', $header, 2);
+
+            if (count($parts) === 2 && strcasecmp(trim($parts[0]), 'Retry-After') === 0) {
+                $value = trim($parts[1]);
+                $this->lastRetryAfter = is_numeric($value) ? (int)$value : null;
+            }
+
+            return strlen($header);
+        });
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->buildRequestHeaders($contentType));
@@ -1033,6 +1055,8 @@ class DiadocApi
             );
         }
 
+        $this->lastStatusCode = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
         if (!($httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE)) || ($httpCode !== 200 && $httpCode !== 204)) {
             $message = sprintf('Curl error http code: (%s) %s', $httpCode, $response);
             if ($httpCode === 401) {
@@ -1051,13 +1075,35 @@ class DiadocApi
         return $response;
     }
 
+    public function getLastStatusCode(): ?int
+    {
+        return $this->lastStatusCode;
+    }
+
+    public function getLastRetryAfter(): ?int
+    {
+        return $this->lastRetryAfter;
+    }
+
     private function buildRequestHeaders(?string $contentType = null): array
     {
+        return [
+            'Authorization: ' . $this->buildAuthorizationHeader(),
+            'Content-type: ' . ($contentType ?: 'application/x-protobuf'),
+        ];
+    }
+
+    private function buildAuthorizationHeader(): string
+    {
+        if ($this->authProvider !== null) {
+            return $this->authProvider->getAuthorizationHeader();
+        }
+
         $header = sprintf('DiadocAuth ddauth_api_client_id=%s', $this->ddauthApiClientId);
         if ($token = $this->getToken()) {
             $header .= sprintf(', ddauth_token=%s', $token);
         }
 
-        return ['Authorization: ' . $header, 'Content-type: ' . ($contentType ?: 'application/x-protobuf')];
+        return $header;
     }
 }

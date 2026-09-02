@@ -26,4 +26,8 @@ enum DocumentType {
     MesNotification = 46;
     UniversalCorrectionDocument = 49;
     UniversalCorrectionDocumentRevision = 50;
+    LogisticsWaybill = 51;
+    LogisticsEpl = 52;
+    LogisticsOrderRequest = 53;
+    LogisticsForwardingOrder = 54;
 }
