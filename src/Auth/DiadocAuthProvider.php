@@ -8,7 +8,7 @@ class DiadocAuthProvider implements AuthProviderInterface
 {
     public function __construct(
         private string $apiClientId,
-        private ?string         $token = null,
+        private ?string $token = null,
     ) {
     }
 

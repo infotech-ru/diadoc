@@ -146,10 +146,10 @@ class DiadocApi
     private ?int $lastRetryAfter = null;
 
     public function __construct(
-        private string                          $ddauthApiClientId,
-        private string                          $serviceUrl = 'https://diadoc-api.kontur.ru/',
-        private bool                            $debugRequest = false,
-        private ?SignerProviderInterface        $signerProvider = null,
+        private string $ddauthApiClientId,
+        private string $serviceUrl = 'https://diadoc-api.kontur.ru/',
+        private bool $debugRequest = false,
+        private ?SignerProviderInterface $signerProvider = null,
         private ?AuthProviderInterface $authProvider = null,
     ) {
     }
@@ -361,11 +361,8 @@ class DiadocApi
         return $this->generateSignedContent($content);
     }
 
-    public function generateTitleXml(
-        array $queryParams,
-        string $postData,
-        ?string $contentType = null,
-    ): string {
+    public function generateTitleXml(array $queryParams, string $postData, ?string $contentType = null,): string
+    {
         return $this->doRequest(
             self::RESOURCE_GENERATE_TITLE_XML,
             $postData,
