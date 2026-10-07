@@ -1,0 +1,45 @@
+syntax = "proto3";
+package Diadoc.Api.Proto;
+
+message GarAddress {
+    string FiasId = 1;
+    optional string ZipCode = 2;
+    string RegionCode = 3;
+    optional GarAddressNameElement MunicipalDistrict = 4;
+    optional GarAddressNameElement UrbanSettlement = 5;
+    optional GarAddressNameElement City = 6;
+    optional GarAddressNameElement PlanningStructure = 7;
+    optional GarAddressNameElement Street = 8;
+    optional string Stead = 9;
+    optional GarHouse Garhouse = 10;
+    optional GarAddressNumberElement RoomWithinBuilding = 11;
+    optional GarAddressNumberElement RoomWithinApartment = 12;
+    GarAddressDivisionType DivisionType = 13;
+    optional GarAddressNameElement District = 14;
+    optional GarAddressNameElement Settlement = 15;
+}
+
+enum GarAddressDivisionType {
+    UnknownDivisionType = 0;
+    Municipal = 1;
+    Administrative = 2;
+}
+
+message GarAddressNameElement {
+    string Abbreviation = 1;
+    string Name = 2;
+}
+
+message GarAddressNumberElement {
+    string Abbreviation = 1;
+    string Number = 2;
+}
+
+message GarHouse {
+    string Abbreviation = 1;
+    string Number = 2;
+    optional string AddNumber1 = 3;
+    optional string AddAbbreviation1 = 4;
+    optional string AddNumber2 = 5;
+    optional string AddAbbreviation2 = 6;
+}

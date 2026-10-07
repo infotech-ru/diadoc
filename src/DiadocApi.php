@@ -33,6 +33,7 @@ use Diadoc\Api\Proto\Events\SignedContent;
 use Diadoc\Api\Proto\Events\Template;
 use Diadoc\Api\Proto\Events\TemplateToPost;
 use Diadoc\Api\Proto\Forwarding\ForwardDocumentRequest;
+use Diadoc\Api\Proto\GarAddress;
 use Diadoc\Api\Proto\GetOrganizationsByInnListRequest;
 use Diadoc\Api\Proto\GetOrganizationsByInnListResponse;
 use Diadoc\Api\Proto\InvitationDocument;
@@ -125,6 +126,7 @@ class DiadocApi
     public const RESOURCE_GET_RECOGNIZED = '/GetRecognized';
     public const RESOURCE_MOVE_DOCUMENTS = '/MoveDocuments';
     public const RESOURCE_PARSE_ACCEPTANCE_CERTIFICATE_SELLER_TITLE_XML = '/ParseAcceptanceCertificateSellerTitleXml';
+    public const RESOURCE_PARSE_GAR_ADDRESS = '/V1/ParseGarAddress';
     public const RESOURCE_PARSE_INVOICE_XML = '/ParseInvoiceXml';
     public const RESOURCE_PARSE_REVOCATION_REQUEST_XML = '/ParseRevocationRequestXml';
     public const RESOURCE_PARSE_RUSSIAN_ADDRESS = '/ParseRussianAddress';
@@ -863,6 +865,20 @@ class DiadocApi
         );
 
         $message = new GetOrganizationsByInnListResponse();
+        $message->mergeFromString($response);
+
+        return $message;
+    }
+
+    public function parseGarAddress(string $address): GarAddress
+    {
+        $response = $this->doRequest(
+            self::RESOURCE_PARSE_GAR_ADDRESS,
+            [],
+            ['address' => $address],
+        );
+
+        $message = new GarAddress();
         $message->mergeFromString($response);
 
         return $message;
