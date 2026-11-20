@@ -25,6 +25,10 @@ class Address extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional string AddressCode = 3;</code>
      */
     protected $AddressCode = null;
+    /**
+     * Generated from protobuf field <code>optional .Diadoc.Api.Proto.GarAddress GarAddress = 4;</code>
+     */
+    protected $GarAddress = null;
 
     /**
      * Constructor.
@@ -35,6 +39,7 @@ class Address extends \Google\Protobuf\Internal\Message
      *     @type \Diadoc\Api\Proto\RussianAddress $RussianAddress
      *     @type \Diadoc\Api\Proto\ForeignAddress $ForeignAddress
      *     @type string $AddressCode
+     *     @type \Diadoc\Api\Proto\GarAddress $GarAddress
      * }
      */
     public function __construct($data = NULL) {
@@ -134,6 +139,38 @@ class Address extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->AddressCode = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .Diadoc.Api.Proto.GarAddress GarAddress = 4;</code>
+     * @return \Diadoc\Api\Proto\GarAddress|null
+     */
+    public function getGarAddress()
+    {
+        return $this->GarAddress;
+    }
+
+    public function hasGarAddress()
+    {
+        return isset($this->GarAddress);
+    }
+
+    public function clearGarAddress()
+    {
+        unset($this->GarAddress);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .Diadoc.Api.Proto.GarAddress GarAddress = 4;</code>
+     * @param \Diadoc\Api\Proto\GarAddress $var
+     * @return $this
+     */
+    public function setGarAddress($var)
+    {
+        GPBUtil::checkMessage($var, \Diadoc\Api\Proto\GarAddress::class);
+        $this->GarAddress = $var;
 
         return $this;
     }
